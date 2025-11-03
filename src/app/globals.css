@@ -1,55 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Reset completo */
-html,
-body {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
-  width: 100%;
   scroll-behavior: smooth;
-
-  background-color: transparent;
+  background-color: transparent; /* ✅ nunca blanco */
   font-family: 'Montserrat', sans-serif;
   color: white;
-
-  /* 🔧 Clave: bloquea scroll lateral y evita pixel extra */
-  overflow-x: clip;        /* más seguro que hidden */
-  overflow-y: overlay;     /* mantiene scroll vertical sin reflow */
+  overflow-x: hidden;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+/* Transiciones suaves globales */
+a, button {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+a:hover, button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
 }
 
-/* Evita rebotes o saltos de scroll */
-html {
-  overscroll-behavior: none;
+html, body {
+  height: 100%;
+  overflow: hidden; /* ✅ quita scroll global */
 }
 
-/* Previene que transformaciones creen overflow */
-body {
-  position: relative;
-  overflow-anchor: none;
-  max-width: 100vw;
-}
-
-/* Opcional: mejora suavidad del scroll */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
+main {
+  height: 100vh;
+  overflow-y: scroll; /* ✅ el scroll principal ocurre en <main> */
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }

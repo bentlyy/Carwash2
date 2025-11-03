@@ -6,16 +6,12 @@ export const metadata = {
   description: "Lavado exterior e interior premium para tu vehículo",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
-      <body className="text-white overflow-x-hidden relative">
-        <BackgroundParallax />
-        {children}
+      <body className="text-white bg-transparent overflow-x-hidden relative">
+        <BackgroundParallax /> {/* fondo global */}
+        <div className="relative z-10">{children}</div> {/* contenido */}
       </body>
     </html>
   );

@@ -5,39 +5,39 @@ import { useEffect } from "react";
 
 export default function BackgroundParallax() {
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 1000], [0, 100]);
+  const y = useTransform(scrollY, [0, 1000], [0, 80]);
+  const scale = useTransform(scrollY, [0, 1000], [1, 1.03]);
 
-  // 🔧 Aseguramos que html/body no generen barras de desplazamiento horizontales
   useEffect(() => {
-    const html = document.documentElement;
-    const body = document.body;
-
-    html.style.margin = "0";
-    html.style.padding = "0";
-    html.style.overflowX = "hidden"; // permite scroll vertical, bloquea horizontal
-    html.style.overflowY = "auto";
-
-    body.style.margin = "0";
-    body.style.padding = "0";
-    body.style.overflowX = "hidden";
-    body.style.overflowY = "auto";
+    document.documentElement.style.overflowX = "hidden";
+    document.body.style.overflowX = "hidden";
   }, []);
 
   return (
     <motion.div
-      className="fixed inset-0 -z-10 overflow-hidden"
-      style={{
-        y,
-        width: "100%",
-        height: "100%",
-      }}
+      className="fixed top-0 left-0 w-screen h-screen -z-50 overflow-hidden"
+      style={{ y, scale }}
     >
+      {/* Imagen siempre visible detrás */}
       <img
         src="/auto.jpg"
         alt="Fondo Carwash"
-        className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none"
+        className="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none brightness-100"
+        style={{
+          zIndex: -1,
+          backgroundColor: "black", // fallback
+        }}
       />
-      <div className="absolute inset-0 bg-black/50 pointer-events-none" />
+
+      {/* Oscurecido sutil para contraste */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.4) 100%)",
+          zIndex: 0,
+        }}
+      />
     </motion.div>
   );
 }
