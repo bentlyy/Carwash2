@@ -43,7 +43,7 @@ export default function LandingHeader() {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 flex justify-center items-center 
+      className={`fixed  left-0 w-full z-50 flex justify-center items-center 
         backdrop-blur-md transition-all duration-500 
         ${isScrolled ? "bg-white/80 shadow-md" : "bg-white/50"}
       `}
@@ -52,7 +52,7 @@ export default function LandingHeader() {
         className="
           flex flex-wrap justify-center items-center gap-[2vw]
           text-[0.95rem] font-medium uppercase tracking-wide select-none
-          py-4 md:py-5 px-6 border-b border-white/50
+          py-8 md:py-10 px-6 border-b border-white/50
         "
       >
         {sections.map((s) => (

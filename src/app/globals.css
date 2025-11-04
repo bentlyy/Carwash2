@@ -14,7 +14,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   color: white;
   background-color: #19191a;
-  overflow-x: hidden;
+  overflow-x: auto;
 }
 
 /* 💡 Importante: solo <main> maneja el scroll vertical */
@@ -25,8 +25,8 @@ body {
 /* ====== MAIN PRINCIPAL ====== */
 main {
   height: 100vh;
-  overflow-y: scroll; /* scroll solo aquí */
-  scroll-snap-type: y mandatory;
+   /* scroll solo aquí */
+  
   scroll-behavior: smooth;
 }
 
@@ -54,3 +54,4 @@ button:hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
 }
+

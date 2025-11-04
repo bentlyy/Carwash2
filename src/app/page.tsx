@@ -67,7 +67,7 @@ export default function HomePage() {
 
           {/* Texto central */}
           <div
-            className="relative z-10 text-center px-6 max-w-2xl"
+            className="relative z-10 text-center px-6 max-w-3xl mt-[-42vh]"
             style={{ opacity: fade, transition: "opacity 0.5s ease" }}
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)]">
@@ -78,7 +78,7 @@ export default function HomePage() {
             </p>
 
             {/* Botones de acción */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="#vehiculos"
                 className="bg-[#D9C87C] text-black px-8 py-3 font-medium rounded-md hover:bg-[#CBB469] transition-all"
@@ -91,7 +91,7 @@ export default function HomePage() {
               >
                 Agenda tu servicio
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
 
