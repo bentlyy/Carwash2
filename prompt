@@ -1,0 +1,416 @@
+// app/layout.tsx
+import "./globals.css";
+
+export const metadata = {
+  title: "Fernando Olivares - Estética Automotriz",
+  description: "Lavado exterior e interior premium para tu vehículo",
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="es">
+      <body className="text-gray-900 bg-white overflow-x-hidden antialiased">
+        {children}
+      </body>
+    </html>
+  );
+}
+,,
+// app/page.tsx
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import LandingHeader from "@/components/LandingHeader";
+import FooterMenu from "@/components/FooterMenu";
+import ContactSection from "@/components/ContactSection";
+
+import ServiciosVehiculos from "@/components/Servicios/ServiciosVehiculos";
+import ServiciosGenerales from "@/components/Servicios/ServiciosGenerales";
+import TratamientosPremium from "@/components/Servicios/TratamientosPremium";
+import ServiciosEspeciales from "@/components/Servicios/ServiciosEspeciales";
+import ServicioDomicilio from "@/components/Servicios/ServicioDomicilio";
+import CursoDetailing from "@/components/Servicios/CursoDetailing";
+
+export default function HomePage() {
+  const [fade, setFade] = useState(1);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const y = container.scrollTop;
+      const fadeValue = Math.max(0, 1 - y / 150);
+      setFade(fadeValue);
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <main
+      ref={scrollContainerRef}
+      className="
+        relative snap-y snap-mandatory 
+        w-full h-screen overflow-y-scroll 
+        scroll-smooth bg-white text-gray-900 
+        antialiased
+      "
+    >
+      {/* 🔝 Header fijo */}
+      <LandingHeader />
+
+      {/* 🏠 Hero principal */}
+      <section
+        id="home"
+        className="
+          relative snap-start h-screen 
+          flex flex-col items-center justify-center 
+          text-center bg-white overflow-hidden
+        "
+      >
+        <div className="relative w-full h-[80vh] flex flex-col items-center justify-center overflow-hidden">
+          <img
+            src="/auto.jpg"
+            alt="Portada automotriz"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white via-white/70 to-transparent" />
+
+          <div
+            className="relative z-10 text-center px-6 max-w-2xl"
+            style={{ opacity: fade, transition: "opacity 0.5s ease" }}
+          >
+            <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.6)]">
+              Fernando Olivares
+            </h1>
+            <p className="text-lg md:text-xl text-gray-100 mb-8 drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
+              Estética Automotriz Profesional en Chillán
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href="#servicios"
+                className="bg-[#D9C87C] text-black px-8 py-3 font-medium rounded-md hover:bg-[#CBB469] transition-all"
+              >
+                Ver servicios
+              </a>
+              <a
+                href="#contacto"
+                className="border border-[#D9C87C] text-white px-8 py-3 font-medium rounded-md hover:bg-[#E3D59C]/30 transition-all"
+              >
+                Agenda tu servicio
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div
+          className="absolute bottom-0 left-0 w-full h-[100px] bg-white shadow-[0_-2px_8px_rgba(0,0,0,0.05)]"
+          style={{
+            opacity: fade,
+            transition: "opacity 0.6s ease",
+          }}
+        />
+      </section>
+
+      {/* 🚘 Secciones siguientes */}
+      <div className="pt-28 md:pt-32"> {/* 🔹 Compensa el header fijo */}
+        <section id="servicios" className="snap-center bg-white">
+          <ServiciosVehiculos />
+        </section>
+
+        <section id="generales" className="snap-center bg-gray-50">
+          <ServiciosGenerales />
+        </section>
+
+        <section id="tratamientos" className="snap-center bg-white">
+          <TratamientosPremium />
+        </section>
+
+        <section id="especiales" className="snap-center bg-gray-50">
+          <ServiciosEspeciales />
+        </section>
+
+        <section id="domicilio" className="snap-center bg-white">
+          <ServicioDomicilio />
+        </section>
+
+        <section id="cursos" className="snap-center bg-gray-50">
+          <CursoDetailing />
+        </section>
+
+        <section id="contacto" className="snap-center bg-white">
+          <ContactSection />
+        </section>
+      </div>
+
+      <FooterMenu />
+    </main>
+  );
+}
+,,
+// src/components/Section.tsx}
+
+"use client";
+
+import { ReactNode } from "react";
+import { motion } from "framer-motion";
+
+type Props = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  color?: string;
+  image?: string;
+  footer?: ReactNode;
+  children?: ReactNode;
+};
+
+export default function Section({
+  id,
+  title,
+  subtitle,
+  color = "white",
+  image,
+  footer,
+  children,
+}: Props) {
+  return (
+    <section
+      id={id}
+      data-header-color={color}
+      className="landing-section relative min-h-screen w-full flex flex-col justify-center items-center text-center overflow-hidden px-6 md:px-12 py-24 md:py-32"
+    >
+      <div className="z-20 max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10">
+        {/* Imagen con fade/slide y hover suave */}
+        {image && (
+          <motion.img
+            src={image}
+            alt={title}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            className="w-full md:w-1/2 max-h-[500px] object-cover rounded-2xl shadow-lg transition-transform duration-500 hover:scale-105 hover:brightness-110"
+          />
+        )}
+
+        {/* Texto con fade/slide opuesto */}
+        <motion.div
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          className="md:w-1/2 text-center md:text-left"
+        >
+          <h2 className={`text-${color} text-4xl md:text-5xl font-semibold mb-4`}>
+            {title}
+          </h2>
+          {subtitle && (
+            <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+              {subtitle}
+            </p>
+          )}
+          {children}
+          {footer && <div className="mt-6">{footer}</div>}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+,, // src/components/LandingHeader.tsx
+
+"use client";
+
+import { useEffect, useState } from "react";
+
+export default function LandingHeader() {
+  const [active, setActive] = useState("home");
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  const sections = [
+    { id: "home", label: "Inicio" },
+    { id: "servicios", label: "Vehículos" },
+    { id: "generales", label: "Servicios" },
+    { id: "tratamientos", label: "Tratamientos" },
+    { id: "especiales", label: "Especiales" },
+    { id: "domicilio", label: "Domicilio" },
+    { id: "cursos", label: "Cursos" },
+    { id: "contacto", label: "Contacto" },
+  ];
+
+  // Cambiar estilo al hacer scroll
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 60);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Detectar sección activa
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length > 0) setActive(visible[0].target.id);
+      },
+      { threshold: 0.4 }
+    );
+
+    sections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <header
+      className={`fixed top-0 left-0 w-full z-50 flex justify-center items-center 
+        backdrop-blur-md transition-all duration-500 
+        ${isScrolled ? "bg-white/80 shadow-md" : "bg-white/50"}
+      `}
+    >
+      <nav
+        className="
+          flex flex-wrap justify-center items-center gap-[2vw]
+          text-[0.95rem] font-medium uppercase tracking-wide select-none
+          py-4 md:py-5 px-6 border-b border-white/50
+        "
+      >
+        {sections.map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            className={`relative px-2 py-1 transition-all duration-300 no-underline
+              ${
+                active === s.id
+                  ? "text-[#D9C87C] after:w-full after:opacity-100"
+                  : "text-[#3C4031] hover:text-[#C7B56D] after:w-0 after:opacity-0"
+              }
+              after:content-[''] after:absolute after:left-1/2 after:-translate-x-1/2
+              after:bottom-[-6px] after:h-[2px] after:bg-[#B67C3D]
+              after:transition-all after:duration-500
+            `}
+            style={{
+              textDecoration: "none",
+              outline: "none",
+              WebkitTapHighlightColor: "transparent",
+            }}
+            onMouseDown={(e) => e.preventDefault()}
+          >
+            {s.label}
+          </a>
+        ))}
+      </nav>
+    </header>
+  );
+}
+,,// src/components/FooterMenu.tsx
+export default function FooterMenu() {
+  return (
+    <footer className="py-3 px-10 flex justify-center items-center absolute bottom-0 w-full z-40 text-gray-400 text-xs font-medium bg-black/40 backdrop-blur-md">
+      <nav>
+        <ul className="flex gap-4">
+          <li><a href="#">© 2025 Fernando Olivares</a></li>
+          <li><a href="#">Privacidad</a></li>
+          <li><a href="#">Contacto</a></li>
+          <li><a href="#">Ubicación</a></li>
+        </ul>
+      </nav>
+    </footer>
+  );
+}
+// components/ContactSection.tsx
+
+"use client";
+
+import { motion } from "framer-motion";
+import Section from "./Section";
+
+export default function ContactSection() {
+  return (
+    <Section
+      id="contact"
+      title="Agenda tu Servicio"
+      subtitle="Atención personalizada en Chillán"
+      color="white"
+      footer={
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="flex flex-col items-center justify-center gap-6 mt-8"
+        >
+          <a
+            href="https://wa.me/56974970075"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-green-500 text-white px-10 py-3 rounded-md text-lg font-medium hover:bg-green-600 transition-colors"
+          >
+            WhatsApp +56 9 749 700 75
+          </a>
+          <p className="text-sm text-gray-300 text-center max-w-sm">
+            También puedes visitarnos o agendar por redes sociales.
+          </p>
+        </motion.div>
+      }
+    />
+  );
+}
+
+-public
+ª   ª   auto.jpg
+ª   ª   file.svg
+ª   ª   globe.svg
+ª   ª   next.svg
+ª   ª   svg-2.svg
+ª   ª   vercel.svg
+ª   ª   window.svg
+ª   ª
+ª   +---vehiculos
+ª           deportivo.jpg
+ª           moto.jpg
+ª           pickup.jpg
+ª           sedan.jpg
+ª           suv.jpg
+ª           van.jpg
+ª
++---src
+    +---app
+    ª       favicon.ico
+    ª       globals.css
+    ª       layout.tsx
+    ª       page.tsx
+    ª
+    +---components
+    ª   ª   BackgroundParallax.tsx
+    ª   ª   ContactSection.tsx
+    ª   ª   FooterMenu.tsx
+    ª   ª   LandingHeader.tsx
+    ª   ª   Section.tsx
+    ª   ª
+    ª   +---Servicios
+    ª           CursoDetailing.tsx
+    ª           ServicioDomicilio.tsx
+    ª           ServiciosEspeciales.tsx
+    ª           ServiciosGenerales.tsx
+    ª           ServiciosVehiculos.tsx
+    ª           TratamientosPremium.tsx
+    ª
+    +---layouts
+    +---types
+    ª       global.d.ts
+    ª
+    +---utils
+    

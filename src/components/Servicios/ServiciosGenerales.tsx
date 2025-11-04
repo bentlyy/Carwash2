@@ -1,40 +1,61 @@
-import Section from "../Section";
+"use client";
+
+import { motion } from "framer-motion";
 
 export default function ServiciosGenerales() {
+  const servicios = [
+    { title: "Lavado Exterior Premium", desc: "Protección y brillo con productos de alta calidad.", icon: "🚗" },
+    { title: "Limpieza Interior Detallada", desc: "Tapices, alfombras y superficies impecables.", icon: "🧽" },
+    { title: "Pulido y Abrillantado", desc: "Restaura el brillo y elimina micro-rayas.", icon: "✨" },
+    { title: "Tratamiento Cerámico", desc: "Capa protectora avanzada con acabado espejo.", icon: "🛡️" },
+    { title: "Desinfección y Sanitización", desc: "Elimina bacterias y malos olores con ozono.", icon: "🧴" },
+    { title: "Lavado de Motor", desc: "Limpieza segura con productos biodegradables.", icon: "⚙️" },
+    { title: "Sellado de Vidrios", desc: "Protección hidrofóbica y mejor visibilidad.", icon: "🪟" },
+    { title: "Sellado de Carrocería", desc: "Brillo duradero y protección total.", icon: "🎨" },
+    { title: "Grabado de Patente", desc: "Protege tu vehículo con grabado identificador.", icon: "🔖" },
+    { title: "Curso Detailing Automotriz", desc: "Capacitación profesional en estética vehicular.", icon: "📘" },
+  ];
+
   return (
-    <Section
+    <section
       id="generales"
-      title="Servicios Generales de Detailing"
-      subtitle="Tu vehículo vuelve a brillar con un mantenimiento completo. Tratamos cada superficie con precisión y cuidado profesional."
-      image="/detailing.webp"
-      footer={
-        <a
-          href="#contacto"
-          className="border border-white/40 px-10 py-3 rounded-md font-medium text-white hover:bg-white hover:text-black transition-all"
-        >
-          Agenda un servicio
-        </a>
-      }
+      className="min-h-screen bg-gray-50 text-gray-900 flex flex-col items-center justify-center px-6 md:px-12 py-24"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-300 text-sm">
-        <div>
-          <p className="font-semibold text-white mb-1">Limpiezas:</p>
-          <ul className="space-y-1">
-            <li>• Tapices, asientos y alfombras</li>
-            <li>• Techo y paneles</li>
-            <li>• Motor y compartimiento</li>
-            <li>• Descontaminación de cristales</li>
-          </ul>
-        </div>
-        <div>
-          <p className="font-semibold text-white mb-1">Pulidos y Correcciones:</p>
-          <ul className="space-y-1">
-            <li>• Pulido abrillantado</li>
-            <li>• Pulido y sellado de ópticos</li>
-            <li>• Corrección de pintura</li>
-          </ul>
-        </div>
+      {/* 🏷️ Título principal */}
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
+        className="text-3xl md:text-4xl font-bold mb-12 text-center text-[#2E2E2E]"
+      >
+        Servicios Profesionales
+      </motion.h2>
+
+      {/* 🧱 Grid con íconos y descripción */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl w-full">
+        {servicios.map((s, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: i * 0.05 }}
+            className="bg-white rounded-2xl shadow-md hover:shadow-lg p-8 text-center transition-all duration-500"
+          >
+            {/* Ícono */}
+            <div className="text-4xl mb-4">{s.icon}</div>
+
+            {/* Título */}
+            <h3 className="text-lg font-semibold mb-2 text-[#2E2E2E]">
+              {s.title}
+            </h3>
+
+            {/* Descripción */}
+            <p className="text-gray-600 text-sm md:text-base">{s.desc}</p>
+          </motion.div>
+        ))}
       </div>
-    </Section>
+    </section>
   );
 }

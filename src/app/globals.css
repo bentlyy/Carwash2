@@ -4,34 +4,53 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+/* ====== CONFIGURACIÓN GLOBAL ====== */
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-  background-color: transparent; /* ✅ nunca blanco */
   font-family: 'Montserrat', sans-serif;
   color: white;
+  background-color: #19191a;
   overflow-x: hidden;
 }
 
-/* Transiciones suaves globales */
-a, button {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease, color 0.25s ease;
-}
-a:hover, button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
+/* 💡 Importante: solo <main> maneja el scroll vertical */
+body {
+  overflow-y: hidden; /* evita doble scroll */
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden; /* ✅ quita scroll global */
-}
-
+/* ====== MAIN PRINCIPAL ====== */
 main {
   height: 100vh;
-  overflow-y: scroll; /* ✅ el scroll principal ocurre en <main> */
+  overflow-y: scroll; /* scroll solo aquí */
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+}
+
+/* ====== CORRECCIÓN DE OFFSET HEADER ====== */
+html,
+body {
+  scroll-padding-top: 7rem; /* deja espacio para el header fijo */
+}
+
+section[id] {
+  scroll-margin-top: 7rem;
+}
+
+/* ====== TRANSICIONES SUAVES ====== */
+a,
+button {
+  transition: transform 0.25s ease,
+              box-shadow 0.25s ease,
+              background-color 0.25s ease,
+              color 0.25s ease;
+}
+
+a:hover,
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
 }
