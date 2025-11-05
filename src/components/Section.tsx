@@ -17,7 +17,7 @@ export default function Section({
   id,
   title,
   subtitle,
-  color = "white",
+  color = "red",
   image,
   footer,
   children,

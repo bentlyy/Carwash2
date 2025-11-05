@@ -4,54 +4,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ====== CONFIGURACIÓN GLOBAL ====== */
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
-  scroll-behavior: smooth;
   font-family: 'Montserrat', sans-serif;
-  color: white;
   background-color: #19191a;
-  overflow-x: auto;
+  color: white;
+  scroll-behavior: smooth;
 }
 
-/* 💡 Importante: solo <main> maneja el scroll vertical */
-body {
-  overflow-y: hidden; /* evita doble scroll */
-}
-
-/* ====== MAIN PRINCIPAL ====== */
 main {
   height: 100vh;
-   /* scroll solo aquí */
-  
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
 
-/* ====== CORRECCIÓN DE OFFSET HEADER ====== */
-html,
-body {
-  scroll-padding-top: 7rem; /* deja espacio para el header fijo */
+section {
+  scroll-snap-align: start;
 }
 
-section[id] {
-  scroll-margin-top: 7rem;
+/* Excluir los botones del header de los estilos globales */
+a:not(header a), 
+button:not(header button) {
+  transition: all 0.25s ease;
 }
-
-/* ====== TRANSICIONES SUAVES ====== */
-a,
-button {
-  transition: transform 0.25s ease,
-              box-shadow 0.25s ease,
-              background-color 0.25s ease,
-              color 0.25s ease;
-}
-
-a:hover,
-button:hover {
+a:not(header a):hover, 
+button:not(header button):hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
 }
-

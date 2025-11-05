@@ -3,35 +3,24 @@
 import { motion } from "framer-motion";
 
 export default function ServiciosPage() {
-  // 🔹 Datos unificados
-  const serviciosGenerales = [
-    { icon: "🚗", title: "Lavado Exterior Premium", desc: "Protección y brillo con productos de alta calidad." },
-    { icon: "🧽", title: "Limpieza Interior Detallada", desc: "Tapices, alfombras y superficies impecables." },
-    { icon: "✨", title: "Pulido Profesional 3 Etapas", desc: "Elimina micro-rayas y devuelve el brillo espejo." },
-    { icon: "🛡️", title: "Tratamiento Cerámico Premium", desc: "Protección extrema con nanopartículas repelentes." },
-    { icon: "💧", title: "Sellado Acrílico", desc: "Brillo intenso y duradero para mantener la pintura." },
-    { icon: "🧴", title: "Descontaminado Full", desc: "Limpieza profunda con clay bar y productos especializados." },
-  ];
-
-  const serviciosEspeciales = [
-    { title: "Restauración de Faros", desc: "Recupera la transparencia y mejora la visibilidad nocturna." },
-    { title: "Limpieza de Tapiz y Cuero", desc: "Eliminamos manchas y olores sin dañar el material original." },
-    { title: "Detailing de Motor", desc: "Limpieza profunda y protección segura para componentes eléctricos." },
-    { title: "Cuidado de Autos Clásicos", desc: "Atención personalizada y productos especiales para autos únicos." },
-  ];
-
-  const servicioDomicilio = [
+  const servicios = [
     {
-      title: "Servicio a Domicilio",
-      desc: "Llevamos la estética automotriz directamente a tu hogar o lugar de trabajo, con equipamiento portátil y productos profesionales.",
+      id: "general",
+      title: "Generales & Premium",
+      desc: "Lavados, tratamientos cerámicos y descontaminados. Cuida tu vehículo con productos de alta gama.",
+      img: "/servicios/generales.jpg",
     },
     {
-      title: "Disponibilidad",
-      desc: "Ideal para lavado exterior, limpieza interior y mantenimiento rápido de flotas o vehículos particulares.",
+      id: "especial",
+      title: "Servicios Especiales",
+      desc: "Pulido de faros, limpieza de tapices, motores y restauración de autos clásicos con cuidado profesional.",
+      img: "/servicios/especiales.jpg",
     },
     {
-      title: "Reserva",
-      desc: "🚗 Agenda tu servicio a domicilio y disfruta de tu vehículo siempre impecable.",
+      id: "domicilio",
+      title: "A Domicilio",
+      desc: "Llevamos nuestro servicio directamente a tu hogar o empresa, con comodidad y calidad profesional.",
+      img: "/servicios/domicilio.jpg",
     },
   ];
 
@@ -39,96 +28,73 @@ export default function ServiciosPage() {
     <section
       id="servicios"
       className="
-        relative w-full min-h-screen bg-white text-gray-900 
-        flex flex-row items-stretch justify-between
-        overflow-hidden
+        relative w-full bg-white text-gray-900
+        flex flex-col items-center justify-center
+        px-8 md:px-16 py-20
       "
     >
-      {/* === 1️⃣ SERVICIOS GENERALES === */}
-      <div className="flex-1 min-w-[33.3%] flex flex-col items-center justify-center px-8 py-16 border-r border-gray-200 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold mb-10 text-[#2E2E2E]"
-        >
-          Servicios Generales
-        </motion.h2>
+      {/* 🔹 Título principal */}
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+        className="text-3xl md:text-4xl font-bold text-center text-[#B67C3D] mb-16"
+      >
+        Nuestros Servicios
+      </motion.h2>
 
-        <div className="flex flex-col gap-5 max-w-md">
-          {serviciosGenerales.map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-            >
-              <h3 className="font-semibold text-lg mb-1">
-                {s.icon} {s.title}
+      {/* 🔹 Contenedor tríptico centrado */}
+      <div
+        className="
+          grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3
+          gap-10
+          max-w-6xl w-full place-items-stretch
+        "
+      >
+        {servicios.map((s, i) => (
+          <motion.div
+            key={s.id}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: i * 0.1 }}
+            className="
+              flex flex-col items-center text-center
+              bg-white rounded-3xl border border-gray-200
+              shadow-md hover:shadow-xl
+              transition-all duration-500 ease-out
+              overflow-hidden
+            "
+          >
+            {/* Imagen superior */}
+            <div className="relative w-full h-[220px] md:h-[260px] overflow-hidden rounded-t-3xl">
+              <img
+                src={s.img}
+                alt={s.title}
+                className="
+                  w-full h-full object-cover 
+                  transform transition-transform duration-700 ease-out 
+                  hover:scale-105
+                "
+              />
+            </div>
+
+            {/* Texto */}
+            <div className="flex flex-col justify-between flex-1 p-8">
+              <h3 className="text-xl md:text-2xl font-semibold text-[#B67C3D] mb-4">
+                {s.title}
               </h3>
-              <p className="text-gray-600 text-sm">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+              <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                {s.desc}
+              </p>
+            </div>
+          </motion.div>
+        ))}
       </div>
 
-      {/* === 2️⃣ SERVICIOS ESPECIALES === */}
-      <div className="flex-1 min-w-[33.3%] flex flex-col items-center justify-center px-8 py-16 border-r border-gray-200 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold mb-10 text-[#2E2E2E]"
-        >
-          Servicios Especiales
-        </motion.h2>
-
-        <div className="flex flex-col gap-5 max-w-md">
-          {serviciosEspeciales.map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-            >
-              <h3 className="font-semibold text-lg mb-1">{s.title}</h3>
-              <p className="text-gray-600 text-sm">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* === 3️⃣ SERVICIO A DOMICILIO === */}
-      <div className="flex-1 min-w-[33.3%] flex flex-col items-center justify-center px-8 py-16 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-3xl md:text-4xl font-bold mb-10 text-[#2E2E2E]"
-        >
-          Servicio a Domicilio
-        </motion.h2>
-
-        <div className="flex flex-col gap-5 max-w-md">
-          {servicioDomicilio.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.05 }}
-            >
-              <h3 className="font-semibold text-lg mb-1">{item.title}</h3>
-              <p className="text-gray-600 text-sm">{item.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+      {/* 🔹 Espacio inferior */}
+      <div className="h-20" />
     </section>
   );
 }
