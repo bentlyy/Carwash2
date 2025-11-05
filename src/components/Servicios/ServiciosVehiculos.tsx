@@ -4,17 +4,17 @@ import { motion } from "framer-motion";
 
 export default function ServiciosVehiculos() {
   const vehiculos = [
-    { src: "/vehiculos/sedan.jpg", title: "Sedán" },
-    { src: "/vehiculos/suv.jpg", title: "SUV" },
-    { src: "/vehiculos/deportivo.jpg", title: "Deportivo" },
-    { src: "/vehiculos/pickup.jpg", title: "Pickup" },
-    { src: "/vehiculos/moto.jpg", title: "Motocicleta" },
-    { src: "/vehiculos/van.jpg", title: "Van / Utilitario" },
+    { src: "/vehiculos/sedan.webp", title: "Sedán" },
+    { src: "/vehiculos/suv.webp", title: "SUV" },
+    { src: "/vehiculos/deportivo.webp", title: "Deportivo" },
+    { src: "/vehiculos/pickup.webp", title: "Pickup" },
+    { src: "/vehiculos/moto.webp", title: "Motocicleta" },
+    { src: "/vehiculos/van.webp", title: "Van / Utilitario" },
   ];
 
   return (
     <section
-      id="servicios"
+      id="vehiculos"
       className="
         relative min-h-screen bg-white text-gray-900
         flex flex-col items-center justify-center
@@ -25,7 +25,7 @@ export default function ServiciosVehiculos() {
       <motion.p
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: 'easeOut' }}
         viewport={{ once: true, amount: 0.4 }}
         className="text-[#C4A24C] uppercase tracking-[0.25em] text-sm font-semibold mb-10 text-center"
       >
@@ -47,19 +47,20 @@ export default function ServiciosVehiculos() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{
               duration: 0.8,
-              delay: i * 0.1, // 🔹 Aparecen uno tras otro
-              ease: "easeOut",
+              delay: i * 0.1,
+              ease: 'easeOut',
             }}
             className="
               relative overflow-hidden rounded-2xl
               shadow-md hover:shadow-xl transition-all duration-500
-              group p-[6px] bg-white
+              group p-[5px] bg-white
             "
           >
             <div className="relative w-full h-[230px] md:h-[260px] overflow-hidden rounded-xl">
               <img
                 src={v.src}
                 alt={v.title}
+                loading={i === 0 ? "eager" : "lazy"}  // ✅ carga progresiva optimizada
                 className="
                   w-full h-full object-cover rounded-xl
                   transform group-hover:scale-105 

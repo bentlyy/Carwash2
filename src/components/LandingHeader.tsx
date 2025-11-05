@@ -20,17 +20,33 @@ export default function LandingHeader({ onScrollToSection }: LandingHeaderProps)
 
   // 🔹 Detectar scroll
   useEffect(() => {
-    const container = document.querySelector("main");
-    if (!container) return;
+  const container = document.querySelector("main");
+  if (!container) return;
 
-    const handleScroll = () => {
-      setIsScrolled(container.scrollTop > 60);
-    };
+  const handleScroll = () => {
+    const scrollPosition = container.scrollTop + window.innerHeight / 3; // más estable
 
-    container.addEventListener("scroll", handleScroll);
-    return () => container.removeEventListener("scroll", handleScroll);
-  }, []);
+    let currentSection = sections[0].id;
+    for (const section of sections) {
+      const element = document.getElementById(section.id);
+      if (element) {
+        const top = element.offsetTop;
+        const height = element.offsetHeight;
 
+        // Detecta la sección centrada en la vista
+        if (scrollPosition >= top && scrollPosition < top + height) {
+          currentSection = section.id;
+          break;
+        }
+      }
+    }
+
+    setActive(currentSection);
+  };
+
+  container.addEventListener("scroll", handleScroll);
+  return () => container.removeEventListener("scroll", handleScroll);
+}, []);
   // 🔹 Detectar la sección activa (SIMPLIFICADO)
   useEffect(() => {
     const handleScroll = () => {
