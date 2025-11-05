@@ -26,11 +26,11 @@ export default function CursoDetailing() {
       id="cursos"
       className="
         relative w-full min-h-screen bg-gradient-to-b from-white via-gray-50 to-white
-        flex flex-col items-center justify-center
-        px-6 md:px-16 py-20
+        flex flex-col items-center justify-start
+        px-6 md:px-16 pt-[3rem] pb-20 mt-20
       "
     >
-      {/* 🏷️ Título */}
+      {/* 🏷️ Título principal */}
       <motion.h2
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -41,22 +41,23 @@ export default function CursoDetailing() {
         Curso Detailing Automotriz
       </motion.h2>
 
-      {/* 🔹 Contenedor principal fluido */}
+      {/* 🔹 Contenedor horizontal estilo afiche */}
       <div
         className="
-          flex flex-col lg:flex-row items-stretch justify-center
-          gap-10 w-full max-w-7xl mx-auto
-        "
+            flex flex-row flex-wrap items-stretch justify-center
+            gap-10 w-full max-w-6xl mx-auto
+          "
       >
-        {/* 📘 Descripción */}
+        {/* 📘 Cuadro de descripción */}
         <motion.div
           initial={{ opacity: 0, x: -30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="
-            flex-1 bg-white rounded-3xl shadow-md border border-gray-100
+            flex-1 bg-white rounded-2xl shadow-md border border-gray-100
             p-8 md:p-10 flex flex-col justify-between
+            max-w-[550px] mx-auto h-[550px]
           "
         >
           <div>
@@ -71,7 +72,7 @@ export default function CursoDetailing() {
           </div>
 
           {/* 📊 Porcentajes */}
-          <div className="grid grid-cols-2 gap-6 max-w-md mx-auto md:mx-0 mt-auto">
+          <div className="grid grid-cols-2 gap-6 max-w-sm mx-auto mt-auto">
             {[{ label: "Teórico", value: "20%" }, { label: "Práctico", value: "80%" }].map(
               (item, i) => (
                 <motion.div
@@ -98,49 +99,49 @@ export default function CursoDetailing() {
           </div>
         </motion.div>
 
-        {/* 📚 Temario */}
+        {/* 📚 Cuadro de temario (sin scroll, con texto reducido) */}
         <motion.div
           initial={{ opacity: 0, x: 30 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="
-            flex-1 bg-white rounded-3xl shadow-md border border-gray-100
-            p-8 md:p-10 flex flex-col
+            flex-1 bg-white rounded-2xl shadow-md border border-gray-100
+            p-8 md:p-10 flex flex-col justify-between
+            max-w-[550px] mx-auto h-[550px]
           "
         >
-          <h3 className="text-xl md:text-2xl font-semibold mb-6 text-center text-[#B67C3D]">
+          <h3 className="text-xl md:text-2xl font-semibold mb-4 text-center text-[#B67C3D]">
             Temario del Curso
           </h3>
 
+          {/* 📋 Lista adaptada: se reparte en columnas, sin scroll */}
           <div
             className="
-              flex-1 overflow-y-auto
-              scrollbar-thin scrollbar-thumb-[#B67C3D]/60 scrollbar-track-gray-100
-              pr-3 max-h-[400px]
+              grid grid-cols-2 gap-x-6 gap-y-2
+              text-gray-700 text-[0.78rem] md:text-[0.85rem] leading-tight
+              flex-1
             "
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-gray-700">
-              {temario.map((item, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: i * 0.02 }}
-                  className="flex items-start gap-2"
-                >
-                  <span className="text-[#B67C3D] mt-[3px]">•</span>
-                  <p className="text-sm md:text-base leading-relaxed">{item}</p>
-                </motion.div>
-              ))}
-            </div>
+            {temario.map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.02 }}
+                className="flex items-start gap-2"
+              >
+                <span className="text-[#B67C3D] mt-[2px] text-xs">•</span>
+                <p>{item}</p>
+              </motion.div>
+            ))}
           </div>
         </motion.div>
       </div>
 
       {/* 🔻 Logos */}
-      <div className="flex flex-wrap justify-center items-center gap-10 mt-12 opacity-90">
+      <div className="flex flex-wrap justify-center items-center gap-10 mt-16 opacity-90">
         <img
           src="/logos/ferno.svg"
           alt="Fernando Olivares Logo"

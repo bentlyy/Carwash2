@@ -24,6 +24,7 @@ main {
 
 section {
   scroll-snap-align: start;
+  scroll-margin-top: 8rem; /* ajusta según la altura del header */
 }
 
 /* Excluir los botones del header de los estilos globales */

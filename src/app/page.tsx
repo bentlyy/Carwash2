@@ -19,7 +19,7 @@ export default function HomePage() {
     const target = document.getElementById(sectionId);
     if (!container || !target) return;
 
-    const headerHeight = 60; // altura efectiva del header
+    const headerHeight = 120; // altura efectiva del header
     container.scrollTo({
       top: target.offsetTop - headerHeight,
       behavior: "smooth",
