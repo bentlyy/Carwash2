@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 @tailwind base;
@@ -9,8 +10,8 @@ body {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Montserrat', sans-serif;
-  background-color: #19191a;
+  font-family: 'Poppins', sans-serif;
+  background-color: white;
   color: white;
   scroll-behavior: smooth;
 }
@@ -24,7 +25,7 @@ main {
 
 section {
   scroll-snap-align: start;
-  scroll-margin-top: 6rem; /* ajusta según la altura del header */
+  scroll-margin-top: 5rem; /* ajusta según la altura del header */
 }
 
 /* Excluir los botones del header de los estilos globales */
@@ -36,4 +37,184 @@ a:not(header a):hover,
 button:not(header button):hover {
   transform: translateY(-1px);
   box-shadow: 0 6px 18px rgba(255, 255, 255, 0.08);
+}
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 0.05em;
+}
+
+/* === Botón WhatsApp animado === */
+.Btn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: 0.3s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  background-color: #00b4d8;
+}
+
+.sign {
+  width: 100%;
+  transition-duration: 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 24px;
+}
+
+.sign svg path {
+  fill: white;
+}
+
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.1em;
+  font-weight: 600;
+  transition-duration: 0.3s;
+}
+
+.Btn:hover {
+  width: 160px;
+  border-radius: 40px;
+  transition-duration: 0.3s;
+  background-color: #00b4d8;
+}
+
+.Btn:hover .sign {
+  width: 30%;
+  transition-duration: 0.3s;
+  padding-left: 10px;
+}
+
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: 0.3s;
+  padding-right: 10px;
+}
+
+.Btn:active {
+  transform: translate(2px, 2px);
+}
+
+
+/* =========================
+   Fondo "Burbujas azules"
+   ========================= */
+
+/* Paleta y opacidades */
+:root {
+  --azul-base: #0b3d91;     /* fondo */
+  --azul-1:    #1e63c4;     /* burbuja grande */
+  --azul-2:    #40a9ff;     /* burbuja media */
+  --cian-1:    #00b4d8;     /* glow */
+  --cian-2:    #06f4ff;     /* brillo ligero */
+}
+
+/* Mantén tu fallback por si no carga la animación */
+body {
+  background:
+    radial-gradient(1200px 800px at 50% -20%, #0b3d91 0%, #0b3d91 40%, #09346f 100%),
+    var(--azul-base);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Capa de burbujas */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  /* Varias "capas" de burbujas usando radial-gradient */
+  background-image:
+    radial-gradient(100px 100px at 10% 90%,  rgba(64,169,255,0.35), transparent 60%),
+    radial-gradient(160px 160px at 80% 20%, rgba(30,99,196,0.35), transparent 60%),
+    radial-gradient(80px  80px  at 20% 20%,  rgba(6,244,255,0.25), transparent 60%),
+    radial-gradient(120px 120px at 90% 75%, rgba(0,180,216,0.28), transparent 60%),
+    radial-gradient(90px  90px  at 35% 65%,  rgba(64,169,255,0.28), transparent 60%),
+    radial-gradient(130px 130px at 65% 40%, rgba(30,99,196,0.3),  transparent 60%);
+
+  background-repeat: no-repeat;
+  background-size:
+    220px 220px,
+    280px 280px,
+    180px 180px,
+    240px 240px,
+    200px 200px,
+    260px 260px;
+
+  /* Posiciones iniciales (se animan con background-position) */
+  background-position:
+    12% 92%,
+    78% 18%,
+    22% 22%,
+    88% 78%,
+    36% 66%,
+    66% 42%;
+
+  animation: bubblesFloat 22s linear infinite;
+  filter: drop-shadow(0 12px 24px rgba(6,244,255,0.12));
+}
+
+/* Suaviza el contraste para texto blanco sobre fondo */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(1000px 600px at 50% 120%, rgba(0,0,0,0.25), transparent 70%);
+}
+
+/* Animación: flotado vertical + leve drift horizontal */
+@keyframes bubblesFloat {
+  0% {
+    background-position:
+      12% 96%,
+      78% 14%,
+      22% 26%,
+      88% 82%,
+      36% 70%,
+      66% 46%;
+  }
+  50% {
+    background-position:
+      15% 60%,
+      75% 40%,
+      25% 40%,
+      85% 55%,
+      40% 40%,
+      60% 28%;
+  }
+  100% {
+    background-position:
+      12% 4%,
+      78% 86%,
+      22% 6%,
+      88% 18%,
+      36% 10%,
+      66% 2%;
+  }
+}
+
+/* Accesibilidad: reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
 }

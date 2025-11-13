@@ -5,13 +5,11 @@ interface ScrollContainerProps {
   children: React.ReactNode;
 }
 
-// ✅ forwardRef permite que el padre tenga acceso al <main>
 const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
   ({ children }, ref) => {
     const innerRef = useRef<HTMLDivElement | null>(null);
     const [isScrolling, setIsScrolling] = useState(false);
 
-    // 🔁 Expone el ref interno al padre
     useImperativeHandle(ref, () => innerRef.current as HTMLDivElement);
 
     useEffect(() => {
@@ -45,8 +43,21 @@ const ScrollContainer = forwardRef<HTMLDivElement, ScrollContainerProps>(
     return (
       <main
         ref={innerRef}
-        className="relative snap-y snap-mandatory h-screen w-full overflow-y-scroll scroll-smooth bg-white text-gray-900"
+        className="
+          relative h-screen w-full overflow-y-scroll scroll-smooth snap-y snap-mandatory
+          text-white bg-gradient-to-b from-[#0b3d91] via-[#1e63c4] to-[#1a1a1a]
+          transition-all duration-700 ease-in-out
+          [mask-image:linear-gradient(to_bottom,black_95%,transparent_100%)]
+          scrollbar-thin scrollbar-thumb-[#06f4ff]/60 scrollbar-track-[#0b3d91]/20
+          hover:scrollbar-thumb-[#40a9ff]/70
+        "
       >
+        {/* ✨ Fondo con brillo sutil */}
+        <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_20%,rgba(6,244,255,0.15)_0%,transparent_70%)]"></div>
+
+        {/* 🌫️ Overlay superior con glass blur */}
+        <div className="fixed top-0 left-0 w-full h-[120px] bg-gradient-to-b from-[#0b3d91]/40 to-transparent backdrop-blur-sm z-10 pointer-events-none"></div>
+
         {children}
       </main>
     );
